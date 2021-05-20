@@ -1,0 +1,13 @@
+<form  method="POST">
+    {% csrf_token %}
+    <h3>Datos Empleados</h3>
+    <p>{{form.nombre}}</p>
+    <p>{{form.apellidos}}</p>
+
+    <h3>Datos Departamento</h3>
+    <p>{{form.departamento}}</p>
+    <p>{{form.shortname}}</p>
+
+
+    <button type="submit">enviar</button>
+</form>
