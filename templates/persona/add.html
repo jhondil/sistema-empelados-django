@@ -1,6 +1,46 @@
-<h1>Registrar usuarios</h1>
-<form  method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Enviar</button>
-</form>
+{% extends '../base.html' %}
+{% load widget_tweaks %}
+{% block title %}Editar Empleado{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {% include "../includes/header.html" %}
+    <h1>modificar empleado</h1>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Nombres</span>
+                    {{form.first_name| add_class:'form-control'| attr:'autocomplete:off'}}
+
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Apellidos</span>
+                    {{form.last_name| add_class:'form-control'| attr:'autocomplete:off'}}
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Trabajo</span>
+                    {{form.job| add_class:'form-control'| attr:'autocomplete:off'}}
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Departamento</span>
+                    {{form.departamento| add_class:'form-control'| attr:'autocomplete:off'}}
+
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Fotografía</span>
+                    {{form.image| add_class:'form-control'| attr:'autocomplete:off'}}
+                   
+                </div>
+                <div class="input-group mb-3">
+                    
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Habilidades</span>
+                    {{form.habilidades| add_class:'form-control'| attr:'autocomplete:off'}}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

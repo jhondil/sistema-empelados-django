@@ -1,7 +1,21 @@
-<h1>eliminar</h1>
+{% extends '../base.html' %}
+{% block title %}
+  Eliminar Empleado
+{% endblock title %}
 
-<form method="POST">
-    {% csrf_token %}
-    <p>desea borra</p>
-    <button type="submit">Si acepto</button>
-</form>
+{% block content %}
+{% include "../includes/header.html" %}
+<div class="container">
+    <h1>eliminar</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <p>Desea borrar al empleado : {{object.full_name}} </p>
+        <button type="submit">Si acepto</button>
+        <a href="{% url 'persona_app:listar-empleados-admin' %}" >Cancelar</a>
+    </form>
+</div>
+
+
+
+{% endblock content %}

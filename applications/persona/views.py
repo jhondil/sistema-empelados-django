@@ -13,6 +13,12 @@ from django.views.generic import (
 from .models import Empleado
 
 
+class InicioView(TemplateView):
+    """Pagina de inicio"""
+    template_name = "persona/index.html"
+
+
+
 # Create your views here.
 ################################################
 ############ List View #########################
@@ -20,7 +26,26 @@ from .models import Empleado
 # listar todos los empleados de la empresa
 class ListAllEmpleados(ListView):
     template_name = 'persona/list-all.html'
-    model = Empleado
+    paginate_by= 4
+
+
+
+    def get_queryset(self):
+        palabra_clave = self.request.GET.get('kword', '')
+        lista = Empleado.objects.filter(
+            first_name__icontains=palabra_clave
+            
+        )
+        return lista
+class ListAllEmpleadosAdmin(ListView):
+    template_name = 'persona/list-all-admin.html'
+    ordering = 'id'
+    paginate_by= 5
+    context_object_name='empleado'
+    
+    model=Empleado
+
+
 
 # listar todos los empleados  que pertenecen a un area de la empresa
 
@@ -33,6 +58,7 @@ class ListByAreaEmpleado(ListView):
     """
 
     template_name = 'persona/list-by-area.html'
+    context_object_name='empleados'
     # queryset= Empleado.objects.filter(
 
     #     departamento__shor_name = 'otro'
@@ -99,10 +125,11 @@ class EmpleadoCreateView(CreateView):
             'job', 
             'departamento',
             'habilidades',
+            'image',
             ]  
     # success_url='.' #recarga la misma pagina
     # recarga la misma pagina
-    success_url = reverse_lazy('persona_app:correcto')
+    success_url = reverse_lazy('persona_app:listar-empleados-admin')
 
     #si los datos del formulario son validos entra a la siguiente función
     def form_valid(self, form):
@@ -132,7 +159,7 @@ class EmpleadoUpdateView(UpdateView):
             'departamento',
             'habilidades',
             ] 
-    success_url = reverse_lazy('persona_app:correcto')
+    success_url = reverse_lazy('persona_app:listar-empleados-admin')
 
     #ecuperar datos desde el formulario por post
     def post(self, request, *args, **kwargs):
@@ -149,5 +176,5 @@ class EmpleadoUpdateView(UpdateView):
 class EmpleadoDeleteView(DeleteView):
     model = Empleado
     template_name = "persona/delete.html"
-    success_url = reverse_lazy('persona_app:correcto')
+    success_url = reverse_lazy('persona_app:listar-empleados-admin')
 

@@ -7,7 +7,7 @@ class Departamento(models.Model):
     anulate = models.BooleanField('Anulado', default=False,)
 
     def __str__(self):
-        return self.name + '-' + self.shor_name
+        return str(self.id) + '-' + self.shor_name
     
 
     class Meta:

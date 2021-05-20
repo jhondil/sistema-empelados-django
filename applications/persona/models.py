@@ -28,8 +28,8 @@ class Empleado (models.Model):
     full_name = models.CharField('Nombres & Apellidos', max_length = 150, blank=True)
     job = models.CharField('trabajo', max_length = 1, choices=JOB_CHOICES)
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100, blank=True, null=True)
-    #relacion a muchos a muchos
+    image = models.ImageField(upload_to='product/%Y/%m/%d', null=True, blank=True)
+   #relacion a muchos a muchos
     habilidades  = models.ManyToManyField(habilidades)
     
 
