@@ -1,7 +1,46 @@
-<h1>Detalle empleado</h1>
+{% extends '../base.html' %}
+{% load widget_tweaks %}
+{% block title %}{{object.full_name}}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {% include "../includes/header.html" %}
+    <h1>Detalle empleado</h1>
+
+    <div class="card" style="width: 18rem;">
+
+        {% if  empleado.image%}
+        <img src="{{empleado.image.url}}" class="card-img-top" alt="...">
+
+        {% else %}
+        <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg"
+            role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image
+                cap</text>
+        </svg>
+        {% endif %}
 
 
-{{empleado.first_name}}
-{{empleado.last_name}}
-{{empleado.job}}
-{{empleado.departamento}}
+        <div class="card-body">
+            <h5 class="card-title">{{empleado.first_name}} {{empleado.last_name}}</h5>
+            <p class="card-text">{{empleado.get_job_display}}</p>
+            <p class="card-text">{{empleado.departamento.shor_name}}</p>
+            <p class="card-text">Habilidades</p>
+            <ul>
+                {% for h in empleado.habilidades.all %}
+                <li>{{h.habilidad}}</li>
+                {% endfor %}
+            </ul>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+{% endblock content %}

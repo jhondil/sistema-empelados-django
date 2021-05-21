@@ -12,6 +12,9 @@ from django.views.generic import (
 
 from .models import Empleado
 
+#form
+from .form import *
+
 
 class InicioView(TemplateView):
     """Pagina de inicio"""
@@ -118,15 +121,16 @@ class EmpleadoDetailView(DetailView):
 class EmpleadoCreateView(CreateView):
     model = Empleado
     template_name = "persona/add.html"
+    form_class = EmpleadoForms 
     # fields = ('__all__') #traer los datos
-    fields = [
-            'first_name', 
-            'last_name', 
-            'job', 
-            'departamento',
-            'habilidades',
-            'image',
-            ]  
+    # fields = [
+    #         'first_name', 
+    #         'last_name', 
+    #         'job', 
+    #         'departamento',
+    #         'habilidades',
+    #         'image',
+    #         ]  
     # success_url='.' #recarga la misma pagina
     # recarga la misma pagina
     success_url = reverse_lazy('persona_app:listar-empleados-admin')
